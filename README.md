@@ -4,6 +4,7 @@
 [![Build Status](https://api.travis-ci.org/ProtocolONE/payone-js-sdk.svg?branch=master)](https://travis-ci.org/ProtocolONE/token_one)
 [![codecov](https://codecov.io/gh/paysuper/paysuper-js-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-js-sdk)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paysuper_paysuper-js-sdk&metric=alert_status)](https://sonarcloud.io/dashboard?id=paysuper_paysuper-js-sdk)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpaysuper%2Fpaysuper-js-sdk.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpaysuper%2Fpaysuper-js-sdk?ref=badge_shield)
 
 PaySuper Javascript SDK is designed to integrate a Checkout Form on your website.
 
@@ -190,3 +191,7 @@ We feel that a welcoming community is important and we ask that you follow PaySu
 PaySuper welcomes contributions from anyone and everyone. Please refer to each project's style and contribution guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
 
 The master branch of this repository contains the latest stable release of this component.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpaysuper%2Fpaysuper-js-sdk.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpaysuper%2Fpaysuper-js-sdk?ref=badge_large)
