@@ -135,7 +135,7 @@ export default class PaySuper extends Events.EventEmitter {
     this.setType(type);
 
     this.customApiUrl = apiUrl;
-    this.urls = getFunctionalUrls({ apiUrl, formUrl });
+    this.urls = getFunctionalUrls({ customApiUrl: apiUrl, customFormUrl: formUrl });
     this.formUrl = this.urls.formUrl;
 
     this.iframe = null;
