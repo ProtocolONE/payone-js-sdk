@@ -1,6 +1,6 @@
 {
   "name": "paysuper-js-sdk",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "main": "src/main.js",
   "scripts": {
     "serve": "VUE_APP_BUILD_PURPOSE=dev vue-cli-service serve",
