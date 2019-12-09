@@ -33,7 +33,7 @@ jobs:
     - set -e
     - npm run lint
     - npm run test
-    - npm run build-release
+    - npm run build-stage
     - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/paysdk/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
     - npm run coverage:publish
   - name: release
