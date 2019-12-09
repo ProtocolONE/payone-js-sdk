@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "VUE_APP_BUILD_PURPOSE=dev vue-cli-service serve",
     "build": "VUE_APP_BUILD_PURPOSE=test vue-cli-service build",
+    "build-stage": "VUE_APP_BUILD_PURPOSE=stage vue-cli-service build",
     "build-release": "VUE_APP_BUILD_PURPOSE=release vue-cli-service build",
     "check-size": "CHECK_SIZE=true vue-cli-service build",
     "lint": "vue-cli-service lint",
