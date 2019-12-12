@@ -182,7 +182,7 @@ paySuper.on('inited', function() {
 
 #### Google Analytics
 
-We've set up a Google Analytics data collection in a test mode inside PaySuper. After the Beta testing, we'll release the [analytics integration](/docs/analytics-integration) to use with a customer's tracking ID.
+We've set up a Google Analytics data collection in a test mode inside PaySuper. After the Beta testing, we'll release the [analytics integration](https://docs.pay.super.com/docs/analytics-integration) to use with a customer's tracking ID.
 
 ## Developing
 
