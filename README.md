@@ -37,6 +37,7 @@ Learn more about a [payments flow](https://docs.pay.super.com/docs/payments/quic
     - [Parameters](#parameters)
     - [Methods](#methods)
     - [Events](#events)
+    - [Analytics integration](#analytics-integration)
 - [Developing](#developing)
     - [Branches](#branches)
     - [Versioning](#versioning)
@@ -176,6 +177,12 @@ paySuper.on('inited', function() {
   console.log('PaySuper is initialized')
 })
 ```
+
+### Analytics integration
+
+#### Google Analytics
+
+We've set up a Google Analytics data collection in a test mode inside PaySuper. After the Beta testing, we'll release the [analytics integration](https://docs.pay.super.com/docs/analytics-integration) to use with a customer's tracking ID.
 
 ## Developing
 
