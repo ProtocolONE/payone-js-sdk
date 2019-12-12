@@ -185,9 +185,11 @@ We use the [GitFlow](https://nvie.com/posts/a-successful-git-branching-model) as
 
 ### Versioning
 
-`https://cdn.pay.super.com/paysdk/v0.11.0/paysuper.js` updates with an actual version release by a tag starts with `v*` that is pushed into the repository.
+`https://cdn.pay.super.com/paysdk/latest/paysuper.js` is the latest production version.
 
-`https://cdn.pay.super.com/paysdk/latest/paysuper.js` is the latest version.
+`https://cdn.pay.super.com/paysdk/v0.11.0/paysuper.js` is a production release version (for example `v0.11.0`) and it updates by releases [paysuper-js-sdk/releases](https://github.com/paysuper/paysuper-js-sdk/releases).
+
+`https://cdn.pay.super.com/paysdk/dev/paysuper.js` is a development version. It works with develpment api and updates with `develop` branch pushes.
 
 ### Building
 
@@ -205,14 +207,6 @@ npm run build
 ```
 npm run check-size
 ```
-
-=======
-## Versioning
-`https://cdn.pay.super.com/paysdk/latest/paysuper.js` is the latest production version.
-
-`https://cdn.pay.super.com/paysdk/v0.11.0/paysuper.js` is a production release version (for example `v0.11.0`) and it updates by releases [paysuper-js-sdk/releases](https://github.com/paysuper/paysuper-js-sdk/releases).
-
-`https://cdn.pay.super.com/paysdk/dev/paysuper.js` is a development version. It works with develpment api and updates with `develop` branch pushes.
 
 ## Tests
 
