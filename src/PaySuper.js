@@ -2,7 +2,7 @@ import assert from 'simple-assert';
 import Events from 'events';
 import qs from 'qs';
 import { camelCase } from 'lodash-es';
-import getFunctionalUrls from './getFunctionalUrls';
+import { formUrl as defaultFormUrl } from './constants';
 import { createIframe, createModalLayer } from './createElements';
 import modalTools from './modalTools';
 import { postMessage, receiveMessages } from './postMessage';
@@ -73,11 +73,11 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
        */
       postMessage(postMessageWindow, 'REQUEST_INIT_FORM', {
         options: {
-          ...(this.language ? { language: this.language } : {}),
           layout: this.layout,
           viewScheme: this.viewScheme,
           viewSchemeConfig: this.viewSchemeConfig,
-          apiUrl: this.urls.apiUrl,
+          ...(this.language ? { language: this.language } : {}),
+          ...(this.apiUrl ? { apiUrl: this.apiUrl } : {}),
         },
       });
     },
@@ -135,9 +135,8 @@ export default class PaySuper extends Events.EventEmitter {
     }
     this.setType(type);
 
-    this.customApiUrl = apiUrl;
-    this.urls = getFunctionalUrls({ apiUrl, formUrl });
-    this.formUrl = this.urls.formUrl;
+    this.apiUrl = apiUrl;
+    this.formUrl = formUrl || defaultFormUrl;
 
     this.iframe = null;
     this.modalLayer = null;
@@ -157,7 +156,6 @@ export default class PaySuper extends Events.EventEmitter {
       ...(this.products ? { products: this.products } : {}),
       ...(this.amount ? { amount: this.amount, currency: this.currency } : {}),
       ...(this.type ? { type: this.type } : {}),
-      ...(this.customApiUrl ? { apiUrl: this.urls.apiUrl } : {}),
       sdk: true,
     };
     return `${base}?${qs.stringify(orderParams)}`;
