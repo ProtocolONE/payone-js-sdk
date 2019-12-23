@@ -35,4 +35,4 @@ At this very moment, we're working on the CLA. Until it is ready we may be on th
 
 ### Where do I go from here?
 
-[The documentation for PaySuper](https://docs.pay.super.com/) is nice and robust. Plase take a look. It should give a great overview of the product. We also have a [decent website](https://pay.super.com/). 
+[The documentation for PaySuper](https://docs.pay.super.com/) is nice and robust. Please take a look. It should give a great overview of the product. We also have a [decent website](https://pay.super.com/). 
