@@ -47,7 +47,7 @@ describe('PaySuper', () => {
       apiUrl: customApiUrl,
     });
 
-    expect(p1PayOne.urls.apiUrl).toEqual(customApiUrl);
+    expect(p1PayOne.apiUrl).toEqual(customApiUrl);
   });
 
   describe('setAmount', () => {

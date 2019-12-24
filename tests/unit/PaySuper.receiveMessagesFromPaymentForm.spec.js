@@ -41,12 +41,7 @@ function getPaySuperMock() {
     layout: 'modal',
     viewScheme: 'light',
     viewSchemeConfig: { headerTextColor: '#333333' },
-    urls: {
-      apiUrl: 'check',
-      getPaymentFormUrl(url) {
-        return url;
-      },
-    },
+    apiUrl: 'check',
     iframe: {
       src: 'none',
       width: 0,
@@ -95,6 +90,6 @@ describe('PaySuper.receiveMessagesFromPaymentForm ', () => {
     expect(result.options.layout).toEqual(PaySuperMock.layout);
     expect(result.options.viewScheme).toEqual(PaySuperMock.viewScheme);
     expect(result.options.viewSchemeConfig).toEqual(PaySuperMock.viewSchemeConfig);
-    expect(result.options.apiUrl).toEqual(PaySuperMock.urls.apiUrl);
+    expect(result.options.apiUrl).toEqual(PaySuperMock.apiUrl);
   });
 });
