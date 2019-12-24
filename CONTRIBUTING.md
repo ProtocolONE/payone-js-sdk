@@ -19,11 +19,11 @@ Contributing to open source can be a rewarding way to learn, teach, and build ex
 
 ### Report bugs
 
-Report bugs and issues by submitting a [bug report](../../issues/new?labels=type%3A+bug&template=1-bug_report.md). Make sure that you provide as much information as possible on how to reproduce the bug.
+Report bugs and issues by submitting a [bug report](../../issues/new?labels=type%3A+bug&template=bug_report.md). Make sure that you provide as much information as possible on how to reproduce the bug.
 
 ### Feature Requests and support
 
-If you have an idea of how to improve PaySuper JavaScript SDK (or anything related, really) or have general feedback, you're welcome to submit a [feature request](../../issues/new?labels=type%3A+feature+request&template=2-feature_request.md).
+If you have an idea of how to improve this project (or anything related, really) or have general feedback, you're welcome to submit a [feature request](../../issues/new?labels=type%3A+feature+request&template=feature_request.md).
 
 Chances are, you like what we have already but you may require a custom integration, a special license or something else big and specific to your needs that our community may not benefit from. We're generally open to such conversations.
 
@@ -35,4 +35,4 @@ At this very moment, we're working on the CLA. Until it is ready we may be on th
 
 ### Where do I go from here?
 
-[The documentation for PaySuper](https://docs.pay.super.com/) is nice and robust. Plase take a look. It should give a great overview of the product. We also have a [decent website](https://pay.super.com/). 
+[The documentation for PaySuper](https://docs.pay.super.com/) is nice and robust. Please take a look. It should give a great overview of the product. We also have a [decent website](https://pay.super.com/). 
