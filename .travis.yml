@@ -17,6 +17,14 @@ env:
 before_script: curl https://rclone.org/install.sh | sudo bash
 jobs:
   include:
+  - name: tests
+    if: "branch NOT IN (master,develop)"
+    script:
+    - set -e
+    - npm run lint
+    - npm run test
+    - npm run build
+    - npm run coverage:publish  
   - name: dev
     if: "(branch = develop)"
     script:
