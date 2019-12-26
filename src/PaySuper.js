@@ -6,6 +6,7 @@ import { formUrl as defaultFormUrl } from './constants';
 import { createIframe, createModalLayer } from './createElements';
 import modalTools from './modalTools';
 import { postMessage, receiveMessages } from './postMessage';
+import { setNoScalableViewport, unsetNoScalableViewport } from './noScalableViewport';
 import './assets/styles.scss';
 
 /**
@@ -61,12 +62,16 @@ export function getLanguage(value) {
 }
 
 export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow) {
+  let metaContent = '';
+
   return receiveMessages(currentWindow, {
     /**
      * The form insize iframe is awaiting the command below with listed options to init
      * Real form rendering start here
      */
     INITED: () => {
+      metaContent = setNoScalableViewport(currentWindow);
+
       /**
        * In development the form receives form data from sdk
        * but in production the page receives it by itself
@@ -97,6 +102,7 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
     },
 
     MODAL_CLOSED: () => {
+      unsetNoScalableViewport(currentWindow, metaContent);
       this.closeModal();
     },
   }, (name, data) => {
