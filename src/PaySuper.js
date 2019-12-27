@@ -62,15 +62,13 @@ export function getLanguage(value) {
 }
 
 export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow) {
-  let metaContent = '';
-
   return receiveMessages(currentWindow, {
     /**
      * The form insize iframe is awaiting the command below with listed options to init
      * Real form rendering start here
      */
     INITED: () => {
-      metaContent = setNoScalableViewport(currentWindow);
+      setNoScalableViewport(currentWindow);
 
       /**
        * In development the form receives form data from sdk
@@ -102,7 +100,7 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
     },
 
     MODAL_CLOSED: () => {
-      unsetNoScalableViewport(currentWindow, metaContent);
+      unsetNoScalableViewport(currentWindow);
       this.closeModal();
     },
   }, (name, data) => {

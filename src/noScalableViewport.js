@@ -9,25 +9,22 @@ export function setNoScalableViewport(currentWindow) {
 
   if (meta) {
     meta.setAttribute('content', metaContent);
+    meta.dataset.oldMetaContent = oldMetaContent;
 
-    return oldMetaContent || null;
+    return;
   }
 
   const newMeta = currentDocument.createElement('meta');
   meta.setAttribute('name', 'viewport');
   meta.setAttribute('content', metaContent);
   currentDocument.head.appendChild(newMeta);
-
-  return null;
 }
 
-export function unsetNoScalableViewport(currentWindow, oldMetaContent) {
+export function unsetNoScalableViewport(currentWindow) {
   const currentDocument = currentWindow.document;
   const meta = currentDocument.querySelector('meta[name="viewport"]');
 
-  if (oldMetaContent) {
-    meta.setAttribute('content', oldMetaContent);
-  } else {
-    meta.setAttribute('content', '');
+  if (meta && meta.dataset) {
+    meta.setAttribute('content', meta.dataset.oldMetaContent || '');
   }
 }

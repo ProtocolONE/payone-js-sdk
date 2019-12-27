@@ -10,6 +10,7 @@ class WindowMock {
       querySelector() {
         return {
           setAttribute() {},
+          dataset: {},
         };
       },
       createElement() {},
