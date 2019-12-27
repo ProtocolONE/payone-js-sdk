@@ -6,6 +6,7 @@ import { formUrl as defaultFormUrl } from './constants';
 import { createIframe, createModalLayer } from './createElements';
 import modalTools from './modalTools';
 import { postMessage, receiveMessages } from './postMessage';
+import { setNoScalableViewport, unsetNoScalableViewport } from './noScalableViewport';
 import './assets/styles.scss';
 
 /**
@@ -67,6 +68,8 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
      * Real form rendering start here
      */
     INITED: () => {
+      setNoScalableViewport(currentWindow);
+
       /**
        * In development the form receives form data from sdk
        * but in production the page receives it by itself
@@ -97,6 +100,7 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
     },
 
     MODAL_CLOSED: () => {
+      unsetNoScalableViewport(currentWindow);
       this.closeModal();
     },
   }, (name, data) => {
