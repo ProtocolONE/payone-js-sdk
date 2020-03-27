@@ -176,10 +176,6 @@ export default class PaySuper extends Events.EventEmitter {
       console.warn('PaySuper: the form is already rendering or finished rendering');
       return this;
     }
-    if (!this.project && !this.token) {
-      console.warn('PaySuper: renderModal method is not allowed with standalone "formUrl"');
-      return this;
-    }
     this.isInited = true;
     this.layout = 'modal';
     const appendContainer = selectorOrElement ? getDomElement(selectorOrElement) : document.body;
