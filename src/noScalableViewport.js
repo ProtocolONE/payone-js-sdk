@@ -15,8 +15,8 @@ export function setNoScalableViewport(currentWindow) {
   }
 
   const newMeta = currentDocument.createElement('meta');
-  meta.setAttribute('name', 'viewport');
-  meta.setAttribute('content', metaContent);
+  newMeta.setAttribute('name', 'viewport');
+  newMeta.setAttribute('content', metaContent);
   currentDocument.head.appendChild(newMeta);
 }
 
