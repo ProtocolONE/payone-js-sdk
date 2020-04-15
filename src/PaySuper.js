@@ -6,6 +6,7 @@ import { formUrl as defaultFormUrl } from './constants';
 import { createIframe, createModalLayer } from './createElements';
 import modalTools from './modalTools';
 import { postMessage, receiveMessages } from './postMessage';
+import { setNoScalableViewport, unsetNoScalableViewport } from './noScalableViewport';
 import './assets/styles.scss';
 
 /**
@@ -67,6 +68,8 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
      * Real form rendering start here
      */
     INITED: () => {
+      setNoScalableViewport(currentWindow);
+
       /**
        * In development the form receives form data from sdk
        * but in production the page receives it by itself
@@ -97,6 +100,7 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
     },
 
     MODAL_CLOSED: () => {
+      unsetNoScalableViewport(currentWindow);
       this.closeModal();
     },
   }, (name, data) => {
@@ -156,6 +160,7 @@ export default class PaySuper extends Events.EventEmitter {
       ...(this.products ? { products: this.products } : {}),
       ...(this.amount ? { amount: this.amount, currency: this.currency } : {}),
       ...(this.type ? { type: this.type } : {}),
+      ...(this.project ? { time: String(new Date().getTime()).slice(0, 10) } : {}),
       sdk: true,
     };
     return `${base}?${qs.stringify(orderParams)}`;
@@ -170,10 +175,6 @@ export default class PaySuper extends Events.EventEmitter {
   async renderModal(selectorOrElement) {
     if (this.isInited) {
       console.warn('PaySuper: the form is already rendering or finished rendering');
-      return this;
-    }
-    if (!this.project && !this.token) {
-      console.warn('PaySuper: renderModal method is not allowed with standalone "formUrl"');
       return this;
     }
     this.isInited = true;

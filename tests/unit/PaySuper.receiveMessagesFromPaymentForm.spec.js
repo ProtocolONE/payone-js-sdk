@@ -4,7 +4,19 @@ import { paysuperPaymentFormSourceName } from '@/postMessage';
 class WindowMock {
   constructor() {
     this.listeners = {
-      message() { },
+      message() {},
+    };
+    this.document = {
+      querySelector() {
+        return {
+          setAttribute() {},
+          dataset: {},
+        };
+      },
+      createElement() {},
+      head: {
+        appendChild() {},
+      },
     };
   }
 

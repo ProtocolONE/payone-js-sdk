@@ -17,6 +17,14 @@ env:
 before_script: curl https://rclone.org/install.sh | sudo bash
 jobs:
   include:
+  - name: tests
+    if: "branch NOT IN (master,develop)"
+    script:
+    - set -e
+    - npm run lint
+    - npm run test
+    - npm run build
+    - npm run coverage:publish  
   - name: dev
     if: "(branch = develop)"
     script:
@@ -45,6 +53,7 @@ jobs:
     - npm run build-release
     - rclone -vv copy dist :s3://cdn.pay.super.com/paysdk/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
     - rclone -vv copy dist :s3://cdn.pay.super.com/paysdk/$TRAVIS_TAG/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+    - npm run coverage:publish
 notifications:
   email: false
   slack:
