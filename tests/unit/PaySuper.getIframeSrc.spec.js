@@ -48,7 +48,7 @@ describe('PaySuper.getIframeSrc', () => {
     });
     const expectedQueryString = qs.stringify({
       ...query,
-      time: new Date().getTime(),
+      time: String(new Date().getTime()).slice(0, 10),
       sdk: true,
     });
     expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
