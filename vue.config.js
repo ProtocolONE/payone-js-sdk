@@ -1,4 +1,5 @@
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const packageJson = require('./package.json');
 
 module.exports = {
   css: {
@@ -11,6 +12,12 @@ module.exports = {
     if (process.env.NODE_ENV !== 'production') {
       return;
     }
+
+    config.plugin('define').tap((definitions) => {
+      definitions[0]['process.env'].PACKAGE_VERSION = JSON.stringify(packageJson.version);
+      return definitions;
+    });
+
 
     // По умолчанию ассеты размером больше, чем 4кб не инлайнятся, а выносятся отдельными файлами.
     // Отменаем это правило

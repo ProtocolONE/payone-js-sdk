@@ -1,3 +1,4 @@
+import qs from 'qs';
 import PaySuper from '@/PaySuper';
 
 describe('PaySuper.getIframeSrc', () => {
@@ -15,5 +16,41 @@ describe('PaySuper.getIframeSrc', () => {
       formUrl,
     });
     expect(paySuper.getIframeSrc()).toEqual(`${formUrl}&sdk=true`);
+  });
+
+  it('should return valid url if token is used', () => {
+    const formUrl = 'https://ya.ru';
+    const query = {
+      token: '5de4fad5070725159f457dcb',
+    };
+    const paySuper = new PaySuper({
+      formUrl,
+      ...query,
+    });
+    const expectedQueryString = qs.stringify({
+      ...query,
+      sdk: true,
+    });
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
+  });
+
+  it('should return valid url if project ID is used', () => {
+    const formUrl = 'https://ya.ru';
+    const query = {
+      project: '5de4fad5070725159f457dcb',
+      amount: 30,
+      currency: 'USD',
+      type: 'simple',
+    };
+    const paySuper = new PaySuper({
+      formUrl,
+      ...query,
+    });
+    const expectedQueryString = qs.stringify({
+      ...query,
+      time: new Date().getTime(),
+      sdk: true,
+    });
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
   });
 });

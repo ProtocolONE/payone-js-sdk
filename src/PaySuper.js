@@ -160,6 +160,7 @@ export default class PaySuper extends Events.EventEmitter {
       ...(this.products ? { products: this.products } : {}),
       ...(this.amount ? { amount: this.amount, currency: this.currency } : {}),
       ...(this.type ? { type: this.type } : {}),
+      ...(this.project ? { time: new Date().getTime() } : {}),
       sdk: true,
     };
     return `${base}?${qs.stringify(orderParams)}`;
