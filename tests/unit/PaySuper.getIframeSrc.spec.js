@@ -2,13 +2,14 @@ import qs from 'qs';
 import { Base64 } from 'js-base64';
 import PaySuper from '@/PaySuper';
 
-describe('PaySuper.getFormUrl', () => {
+describe('PaySuper.getIframeSrc', () => {
   it('should work well with formUrl only', () => {
     const formUrl = 'https://ya.ru';
     const paySuper = new PaySuper({
       formUrl,
     });
-    expect(paySuper.getFormUrl()).toEqual(`${formUrl}?sdk=true`);
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?sdk=true`);
+    expect(paySuper.getFormUrl()).toEqual(`${formUrl}?`);
   });
 
   it('should work well with formUrl only 2', () => {
@@ -16,7 +17,7 @@ describe('PaySuper.getFormUrl', () => {
     const paySuper = new PaySuper({
       formUrl,
     });
-    expect(paySuper.getFormUrl()).toEqual(`${formUrl}&sdk=true`);
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}&sdk=true`);
   });
 
   it('should return valid url if token is used', () => {
@@ -32,7 +33,7 @@ describe('PaySuper.getFormUrl', () => {
       ...query,
       sdk: true,
     });
-    expect(paySuper.getFormUrl()).toEqual(`${formUrl}?${expectedQueryString}`);
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
   });
 
   it('should return valid url if project ID is used', () => {
@@ -52,7 +53,7 @@ describe('PaySuper.getFormUrl', () => {
       time: String(new Date().getTime()).slice(0, 10),
       sdk: true,
     });
-    expect(paySuper.getFormUrl()).toEqual(`${formUrl}?${expectedQueryString}`);
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
   });
 
   it('should return valid url if token is used', () => {
@@ -74,6 +75,6 @@ describe('PaySuper.getFormUrl', () => {
       viewSchemeConfig: Base64.encode(JSON.stringify(viewSchemeConfig)),
       sdk: true,
     });
-    expect(paySuper.getFormUrl()).toEqual(`${formUrl}?${expectedQueryString}`);
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
   });
 });

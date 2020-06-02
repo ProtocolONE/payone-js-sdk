@@ -149,7 +149,7 @@ export default class PaySuper extends Events.EventEmitter {
     this.layout = null;
   }
 
-  getFormUrl() {
+  getFormUrl({ isSdkControlled = false } = {}) {
     const [base, queryString] = this.formUrl.split('?');
     const query = queryString ? qs.parse(queryString) : {};
     const orderParams = {
@@ -166,14 +166,13 @@ export default class PaySuper extends Events.EventEmitter {
           ? { viewSchemeConfig: Base64.encode(JSON.stringify(this.viewSchemeConfig)) }
           : {}
       ),
-      sdk: true,
+      ...(isSdkControlled ? { sdk: true } : {}),
     };
     return `${base}?${qs.stringify(orderParams)}`;
   }
 
-  // For backward compability
   getIframeSrc() {
-    return this.getFormUrl();
+    return this.getFormUrl({ isSdkControlled: true });
   }
 
   /**
@@ -197,7 +196,7 @@ export default class PaySuper extends Events.EventEmitter {
     appendContainer.appendChild(this.modalLayer);
 
     this.iframe = createIframe(
-      this.getFormUrl(),
+      this.getIframeSrc(),
       this.modalLayer,
     );
 
@@ -226,7 +225,7 @@ export default class PaySuper extends Events.EventEmitter {
     appendContainer.innerHTML = '';
 
     this.iframe = createIframe(
-      this.getFormUrl(),
+      this.getIframeSrc(),
       appendContainer,
       true,
     );
