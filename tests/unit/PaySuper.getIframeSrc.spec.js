@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { Base64 } from 'js-base64';
 import PaySuper from '@/PaySuper';
 
 describe('PaySuper.getIframeSrc', () => {
@@ -8,6 +9,7 @@ describe('PaySuper.getIframeSrc', () => {
       formUrl,
     });
     expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?sdk=true`);
+    expect(paySuper.getFormUrl()).toEqual(`${formUrl}?`);
   });
 
   it('should work well with formUrl only 2', () => {
@@ -49,6 +51,28 @@ describe('PaySuper.getIframeSrc', () => {
     const expectedQueryString = qs.stringify({
       ...query,
       time: String(new Date().getTime()).slice(0, 10),
+      sdk: true,
+    });
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
+  });
+
+  it('should return valid url if token is used', () => {
+    const formUrl = 'https://ya.ru';
+    const viewSchemeConfig = {
+      cartBackgroundColor: 'red',
+    };
+    const query = {
+      token: '5de4fad5070725159f457dcb',
+      viewScheme: 'light',
+    };
+    const paySuper = new PaySuper({
+      formUrl,
+      ...query,
+      viewSchemeConfig,
+    });
+    const expectedQueryString = qs.stringify({
+      ...query,
+      viewSchemeConfig: Base64.encode(JSON.stringify(viewSchemeConfig)),
       sdk: true,
     });
     expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);

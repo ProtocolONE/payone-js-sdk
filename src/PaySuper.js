@@ -1,5 +1,6 @@
 import assert from 'simple-assert';
 import Events from 'events';
+import { Base64 } from 'js-base64';
 import qs from 'qs';
 import { camelCase } from 'lodash-es';
 import { formUrl as defaultFormUrl } from './constants';
@@ -77,8 +78,6 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
       postMessage(postMessageWindow, 'REQUEST_INIT_FORM', {
         options: {
           layout: this.layout,
-          viewScheme: this.viewScheme,
-          viewSchemeConfig: this.viewSchemeConfig,
           ...(this.language ? { language: this.language } : {}),
           ...(this.apiUrl ? { apiUrl: this.apiUrl } : {}),
         },
@@ -119,7 +118,7 @@ export default class PaySuper extends Events.EventEmitter {
     this.language = getLanguage(language);
     this.token = token;
     this.type = null;
-    this.viewScheme = viewScheme || 'dark';
+    this.viewScheme = viewScheme || '';
     this.viewSchemeConfig = viewSchemeConfig || null;
 
     if (currency) {
@@ -150,7 +149,7 @@ export default class PaySuper extends Events.EventEmitter {
     this.layout = null;
   }
 
-  getIframeSrc() {
+  getFormUrl({ isSdkControlled = false } = {}) {
     const [base, queryString] = this.formUrl.split('?');
     const query = queryString ? qs.parse(queryString) : {};
     const orderParams = {
@@ -161,9 +160,19 @@ export default class PaySuper extends Events.EventEmitter {
       ...(this.amount ? { amount: this.amount, currency: this.currency } : {}),
       ...(this.type ? { type: this.type } : {}),
       ...(this.project ? { time: String(new Date().getTime()).slice(0, 10) } : {}),
-      sdk: true,
+      ...(this.viewScheme ? { viewScheme: this.viewScheme } : {}),
+      ...(
+        this.viewSchemeConfig
+          ? { viewSchemeConfig: Base64.encode(JSON.stringify(this.viewSchemeConfig)) }
+          : {}
+      ),
+      ...(isSdkControlled ? { sdk: true } : {}),
     };
     return `${base}?${qs.stringify(orderParams)}`;
+  }
+
+  getIframeSrc() {
+    return this.getFormUrl({ isSdkControlled: true });
   }
 
   /**
