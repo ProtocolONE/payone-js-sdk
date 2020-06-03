@@ -161,11 +161,13 @@ function buyItems() {
 | `pageBeforeInit` | PaySuper form has started to render as a page. |
 | `modalBeforeInit` | PaySuper form has started to render as a modal dialog. |
 | `inited` | PaySuper form scripts have been downloaded and have started to load. |
-| `loaded` | PaySuper form has finished to load and is ready to operate. |
-| `paymentFailedToBegin` | An error has occured while fetching the order. |
+| `loaded` | PaySuper form interface loading is finished. |
+| `paymentNew` | The order data has finished to initialize. |
+| `paymentFailedToBegin` | An error has occured while initializing order data. |
 | `paymentBeforeCreated` | The moment before the payment is created. |
 | `paymentCreated` | The payment has been created, but has not finished yet. |
 | `paymentFailedToCreate` | An error has occured while creating the payment. |
+| `paymentSystemSuccess` | The payment has received intermediate approvement. |
 | `paymentCompleted` | The payment is successful. |
 | `paymentDeclined` | The payment is declined by the payment system. |
 | `paymentInterrupted` | The payment is interrupted by the user. |
