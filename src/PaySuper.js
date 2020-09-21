@@ -110,7 +110,7 @@ export function receiveMessagesFromPaymentForm(currentWindow, postMessageWindow)
 export default class PaySuper extends Events.EventEmitter {
   constructor({
     project, token, currency, amount, language, apiUrl, formUrl, products, type,
-    viewScheme, viewSchemeConfig,
+    viewScheme, viewSchemeConfig, autofocus,
   } = {}) {
     super();
     assert(project || token || formUrl, 'project, token or formUrl is required for "new PaySuper(...)"');
@@ -120,6 +120,7 @@ export default class PaySuper extends Events.EventEmitter {
     this.type = null;
     this.viewScheme = viewScheme || '';
     this.viewSchemeConfig = viewSchemeConfig || null;
+    this.autofocus = autofocus || '';
 
     if (currency) {
       this.setCurrency(currency);
@@ -152,7 +153,7 @@ export default class PaySuper extends Events.EventEmitter {
   getFormUrl({ isSdkControlled = false } = {}) {
     const [base, queryString] = this.formUrl.split('?');
     const query = queryString ? qs.parse(queryString) : {};
-    const orderParams = {
+    const queryParams = {
       ...query,
       ...(this.project ? { project: this.project } : {}),
       ...(this.token ? { token: this.token } : {}),
@@ -166,9 +167,10 @@ export default class PaySuper extends Events.EventEmitter {
           ? { viewSchemeConfig: Base64.encode(JSON.stringify(this.viewSchemeConfig)) }
           : {}
       ),
+      ...(this.autofocus ? { autofocus: this.autofocus } : {}),
       ...(isSdkControlled ? { sdk: true } : {}),
     };
-    return `${base}?${qs.stringify(orderParams)}`;
+    return `${base}?${qs.stringify(queryParams)}`;
   }
 
   getIframeSrc() {
