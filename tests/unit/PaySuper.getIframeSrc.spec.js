@@ -77,4 +77,37 @@ describe('PaySuper.getIframeSrc', () => {
     });
     expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
   });
+
+  it('should work well with autofocus param', () => {
+    const formUrl = 'https://ya.ru';
+    const query = {
+      token: '5de4fad5070725159f457dcb',
+      autofocus: 'off',
+    };
+    const paySuper = new PaySuper({
+      formUrl,
+      ...query,
+    });
+    const expectedQueryString = qs.stringify({
+      ...query,
+      sdk: true,
+    });
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}?${expectedQueryString}`);
+  });
+
+  it('should work well with autofocus + formUrl params', () => {
+    const formUrl = 'https://ya.ru?order_id=123';
+    const query = {
+      autofocus: 'off',
+    };
+    const paySuper = new PaySuper({
+      formUrl,
+      ...query,
+    });
+    const expectedQueryString = qs.stringify({
+      ...query,
+      sdk: true,
+    });
+    expect(paySuper.getIframeSrc()).toEqual(`${formUrl}&${expectedQueryString}`);
+  });
 });
