@@ -1,0 +1,78 @@
+name: Build
+on:
+  push:
+    branches:
+  workflow_dispatch:
+
+env:
+  AWS_CDN_ACCESS_KEY_ID:  ${{ secrets.AWS_CDN_ACCESS_KEY_ID }}
+  AWS_CDN_SECRET_KEY: ${{ secrets.AWS_CDN_SECRET_KEY }}
+
+jobs:
+  tests:
+    name: tests
+    runs-on: ubuntu-latest
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '11'
+
+      - run: yarn --frozen-lockfile
+
+      - name: install rclone
+        run: curl https://rclone.org/install.sh | sudo bash
+
+      - name: tests
+        #if: github.ref != 'refs/heads/develop' and github.ref != 'refs/heads/master'
+        run: |
+          set -e
+          npm run lint
+          npm run test
+          npm run build
+          npm run coverage:publish  
+
+      - name: develop
+        if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+        run: |
+          set -e
+          npm run lint
+          npm run test
+          npm run build
+          rclone copy dist :s3://cdn.pay.super.com/paysdk/dev/ \
+            --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID \
+            --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+          npm run coverage:publish
+
+      - name: stage
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          set -e
+          npm run lint
+          npm run test
+          npm run build-stage
+          rclone copy dist :s3://cdn.pay.super.com/paysdk/stage/ \
+            --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID \
+            --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+          npm run coverage:publish
+
+      - name: release
+        if: startsWith(github.ref, 'refs/tags/v') && github.event_name == 'push'
+        run: |
+          set -e
+          npm run lint
+          npm run test
+          npm run build-release
+          rclone -vv copy dist :s3://cdn.pay.super.com/paysdk/latest/ \
+            --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID \
+            --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+          rclone -vv copy dist :s3://cdn.pay.super.com/paysdk/${GITHUB_REF##*/} \
+            --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID \
+            --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+          npm run coverage:publish
