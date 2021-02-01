@@ -1,7 +1,7 @@
 name: Build
 on:
   push:
-    branches:
+  pull_request:
   workflow_dispatch:
 
 env:
@@ -133,4 +133,15 @@ jobs:
             --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID \
             --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
           npm run coverage:publish
+
+  slack-notification:
+    needs: [tests, deploy-tst, deploy-stg, deploy-release]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Slack Workflow Notification
+        uses: paysuper/slack-workflow-status@118b3b43993d447a1a5cd7fddf5a1235ab219b18
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL}}
 
