@@ -2,7 +2,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0) 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/paysuper/paysuper-js-sdk/issues)
-[![Build Status](https://travis-ci.com/paysuper/paysuper-js-sdk.svg?branch=develop)](https://travis-ci.com/paysuper/paysuper-js-sdk) [![codecov](https://codecov.io/gh/paysuper/paysuper-js-sdk/branch/develop/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-js-sdk)
+[![Build Status](https://github.com/paysuper/paysuper-js-sdk/workflows/Build/badge.svg?branch=develop)](https://github.com/paysuper/paysuper-js-sdk/actions) 
+[![codecov](https://codecov.io/gh/paysuper/paysuper-js-sdk/branch/develop/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-js-sdk)
 
 PaySuper Javascript SDK is designed to integrate a [PaySuper Payment Form](https://github.com/paysuper/paysuper-payment-form) on your website or a game client.
 
@@ -90,6 +91,7 @@ function buyItems() {
 |`amount`|Number|The order amount. **Example:** 59.9.|
 |`currency`|String|The order currency. Three-letter Currency Code ISO 4217, in uppercase. The default value is used from the Project general settings. If the value for this field is passed, the default value is overwritten. **Example:** 'USD'.|
 |`formUrl`|String|The URL with the ID of the created order. The URL format is `https://order.pay.super.com/?order_id=YOUR_ORDER_ID`.|
+|`autofocus`|String|Controls `Сard number` input autofocusing on form load. **Available options:** `off`.|
 |`viewScheme`|String|Sample code is available at [Theme style](docs/CUSTOMIZATION.md). **Available options:** `dark` (default), `light`.|
 |`viewSchemeConfig`|Object|Sample code is available at [Colors styles](docs/CUSTOMIZATION.md). **Example:** { headerTextColor: '#333333' }|
 
@@ -109,7 +111,6 @@ const paySuper = new PaySuper({
 const paySuper = new PaySuper({
     project: '5cd5620f06ae110001509185',
     products: ['5d7baee015ff7d0001b986a8'],
-    platform_id: 'gog',
     type: 'key'
 });
 ```
@@ -128,7 +129,7 @@ const paySuper = new PaySuper({
 
 | Method | Type | Description |
 |---|---|---|
-| `renderModal()` | return: {PaySuper} | Renders the form in a modal dialog window.|
+|`renderModal()`| return: {PaySuper} | Renders the form in a modal dialog window.|
 |`renderPage()`|return: {PaySuper}|Renders the form as an iframe. Height is determined automatically.|
 |`closeModal()`|return: {PaySuper}|Closes a modal dialog.|
 |`setAmount(value)` |param: **value** {Number}, return: {PaySuper}|**Example:** 59.9.|
